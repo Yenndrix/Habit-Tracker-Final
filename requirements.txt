@@ -1,0 +1,8 @@
+# Required dependencies for the Habit Tracking App
+
+logging
+datetime
+sqlite3
+python-dateutil  # Provides dateutil.relativedelta
+pytest
+

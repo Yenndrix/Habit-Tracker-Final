@@ -164,7 +164,6 @@ def create_tables(db):
             habit_id INTEGER NOT NULL,
             current_streak INTEGER DEFAULT 0,
             longest_streak INTEGER DEFAULT 0,
-            progress INTEGER DEFAULT 0,
             last_completed DATE,
             FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE,
             FOREIGN KEY(habit_id) REFERENCES habits(habit_id) ON DELETE CASCADE
@@ -217,8 +216,8 @@ class Habit:
             # adds streak to the streak table
             if not cur.fetchone():
                 cur.execute('''
-                    INSERT INTO streaks (user_id, habit_id, current_streak, longest_streak, progress, last_completed)
-                    VALUES (?, ?, 0, 0, 0, NULL)
+                    INSERT INTO streaks (user_id, habit_id, current_streak, longest_streak, last_completed)
+                    VALUES (?, ?, 0, 0, NULL)
                 ''', (user_id, habit_id))
                 db.commit()
             
@@ -326,8 +325,8 @@ class Habit:
                 if not cur.fetchone():
                     cur.execute(
                         '''
-                        INSERT INTO streaks (user_id, habit_id, current_streak, longest_streak, progress, last_completed)
-                        VALUES (?, ?, 0, 0, 0, NULL)
+                        INSERT INTO streaks (user_id, habit_id, current_streak, longest_streak, last_completed)
+                        VALUES (?, ?, 0, 0, NULL)
                         ''',
                         (user.user_id, habit_id),
                     )
